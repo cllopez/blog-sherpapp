@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllPostsMeta } from "@sherpi/lib/posts";
+import { getAllPostsMeta } from "../../src/lib/posts";
 
 export const dynamic = "force-static"; // genera estático
 
