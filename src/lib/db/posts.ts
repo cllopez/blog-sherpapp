@@ -25,10 +25,29 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   return posts.map(formatPost);
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  await connectDB();
-  const post = await Post.findOne({ slug, isPublished: true }).lean();
-  return post ? formatPost(post) : null;
+export async function getPostBySlug(slug: string | null | undefined): Promise<BlogPost | null> {
+  try {
+    if (!slug) {
+      console.warn('No slug provided to getPostBySlug');
+      return null;
+    }
+    
+    await connectDB();
+    const post = await Post.findOne({ 
+      slug, 
+      isPublished: true 
+    }).lean();
+    
+    if (!post) {
+      console.warn(`No post found for slug: ${slug}`);
+      return null;
+    }
+
+    return formatPost(post);
+  } catch (error) {
+    console.error('Error fetching post by slug:', error);
+    return null;
+  }
 }
 
 export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
