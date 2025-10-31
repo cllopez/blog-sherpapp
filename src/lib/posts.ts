@@ -11,7 +11,7 @@ export type PostMeta = {
   excerpt: string;
 };
 
-export function getAllPostsMeta(): PostMeta[] {
+export function getAllPublishedPosts(): PostMeta[] {
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith(".mdx"));
   const posts = files.map((filename) => {
     const slug = filename.replace(/\.mdx$/, "");
@@ -41,4 +41,15 @@ export function getPostSourceBySlug(slug: string) {
   const fullPath = path.join(POSTS_DIR, `${slug}.mdx`);
   const file = fs.readFileSync(fullPath, "utf8");
   return matter(file); // { content, data }
+}
+
+// src/lib/posts.ts
+
+export function getPostBySlug(slug: string) {
+  const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) return null;
+
+  const file = fs.readFileSync(filePath, "utf8");
+  const { content, data } = matter(file);
+  return { content, data };
 }

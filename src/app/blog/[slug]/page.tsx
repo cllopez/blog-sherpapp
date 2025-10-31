@@ -1,47 +1,38 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+// app/blog/[slug]/page.tsx
+import { getPostBySlug, getAllPosts } from "../../../lib/db/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 
-type Props = { params: { slug: string } };
-
-const POSTS_DIR = path.join(process.cwd(), "content", "posts");
-
 export async function generateStaticParams() {
-  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith(".mdx"));
-  return files.map((f) => ({ slug: f.replace(/\.mdx$/, "") }));
+  try {
+    const posts = await getAllPosts();
+    return posts.map((post) => ({ 
+      slug: post.slug 
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
 
-export default async function PostPage({ params }: Props) {
-  const slug = params.slug;
-  const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  if (!slug) return notFound();
+  
+  const post = await getPostBySlug(slug);
+  if (!post) return notFound();
 
-  try {
-    if (!fs.existsSync(filePath)) return notFound();
-
-    const file = fs.readFileSync(filePath, "utf8");
-    const { content, data } = matter(file);
-
-    return (
-      <main className="max-w-3xl mx-auto py-10 px-4">
-        <h1 className="text-3xl font-bold mb-2">{data.title ?? slug}</h1>
-
-        {data.date && (
-          <p className="text-sm text-gray-500 mb-6">
-            {new Date(data.date).toLocaleDateString()}
-          </p>
-        )}
-
-        <article className="prose prose-neutral dark:prose-invert">
-          <MDXRemote source={content} />
-        </article>
-      </main>
-    );
-  } catch (error) {
-    console.error("Error loading post:", error);
-    return notFound();
-  }
+  return (
+    <main className="max-w-3xl mx-auto py-12 px-4">
+      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+      {post.date && (
+        <p className="text-sm text-gray-500 mb-6">{new Date(post.date).toLocaleDateString()}</p>
+      )}
+      <article className="prose">
+        <MDXRemote source={post.content} />
+      </article>
+    </main>
+  );
 }
 
 

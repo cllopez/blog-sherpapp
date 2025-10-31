@@ -1,38 +1,47 @@
+// app/blog/page.tsx
 import Link from "next/link";
-import { getAllPostsMeta } from "../../lib/posts";
+import { getAllPosts } from "../../lib/db/posts";
 
-export const dynamic = "force-static"; // genera estático
-
-export default function BlogPage() {
-  const posts = getAllPostsMeta();
-
+export default async function BlogPage() {
+  const posts = await getAllPosts();
+  
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12 text-slate-800">
-      <h1 className="text-4xl font-extrabold text-green-800 mb-8">Blog de SherpApp</h1>
-
-      <ul className="space-y-6">
-        {posts.map((p) => (
-          <li key={p.slug} className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
-
-
-            <Link
-              href={`/blog/${p.slug}`}
-              className="text-xl font-semibold text-green-700 hover:underline transition-all duration-150"
-            >
-              {p.title}
-            </Link>
-            {p.date && (
-              <div className="text-sm text-slate-500 mt-1">
-                {new Date(p.date).toLocaleDateString("es-ES", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold mb-8">Blog de SherpApp</h1>
+      {posts.length === 0 ? (
+        <p className="text-gray-600">No hay publicaciones aún.</p>
+      ) : (
+        <ul className="space-y-8">
+          {posts.map((post) => (
+            <li key={post.slug} className="border-b pb-6">
+              <Link href={`/blog/${post.slug}`} className="block group">
+                <h2 className="text-2xl font-semibold text-purple-700 group-hover:text-purple-500 transition-colors">
+                  {post.title}
+                </h2>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                  <span>•</span>
+                  <span>{post.author}</span>
+                </div>
+                <p className="mt-3 text-gray-600">
+                  {post.excerpt}
+                </p>
+                <div className="mt-4 flex gap-2">
+                  {post.tags.map(tag => (
+                    <Link 
+                      key={tag} 
+                      href={`/blog/tags/${tag}`}
+                      className="text-sm px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 transition-colors"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 }

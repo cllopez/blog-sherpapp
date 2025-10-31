@@ -16,6 +16,6 @@ theme: {
   }
 }
 ,
-  plugins: [typography],
+  plugins: [require("@tailwindcss/typography")],
 };
 export default config;
