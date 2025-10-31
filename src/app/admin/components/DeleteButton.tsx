@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from '../../../hooks/useRouter';
 
 export default function DeleteButton({ slug }: { slug: string }) {
   const router = useRouter();

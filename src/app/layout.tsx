@@ -1,40 +1,33 @@
-import "./globals.css";
-import Header from "../components/Header";
+import './globals.css'
+import type { Metadata } from 'next'
+import Header from './components/Header'
 
-
-export const metadata = {
-  title: "Blog de SherpApp",
-  description: "Aprendizajes, avances y reflexiones del equipo SherpApp.",
-};
+export const metadata: Metadata = {
+  metadataBase: new URL('https://sherpapp.es'),
+  title: {
+    template: '%s | SherpApp',
+    default: 'SherpApp - Consejos y experiencias para estudiantes'
+  },
+  description: 'Consejos, experiencias reales y buenas prácticas para organizarte mejor y rendir al máximo.',
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    siteName: 'SherpApp'
+  }
+}
 
 export default function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="es">
-      <body
-        style={{
-          margin: 0,
-          fontFamily: "system-ui, sans-serif",
-          backgroundColor: "#fafafa",
-          color: "#222",
-        }}
-      >
+      <body>
         <Header />
-        <main style={{ minHeight: "80vh", padding: "2rem" }}>{children}</main>
-        <footer
-          style={{
-            textAlign: "center",
-            padding: "1rem 0",
-            borderTop: "1px solid #eee",
-            fontSize: "0.9rem",
-            opacity: 0.6,
-          }}
-        >
-          © {new Date().getFullYear()} SherpApp — Todos los derechos reservados
-        </footer>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );

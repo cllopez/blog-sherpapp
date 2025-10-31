@@ -9,14 +9,17 @@ export type PostMeta = {
   title: string;
   date: string;
   excerpt: string;
+  author?: string;
+  tags?: string[];
 };
 
-export function getAllPublishedPosts(): PostMeta[] {
-  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith(".mdx"));
-  const posts = files.map((filename) => {
+export async function getAllPublishedPosts(): Promise<PostMeta[]> {
+  const files = await fs.promises.readdir(POSTS_DIR);
+  const mdxFiles = files.filter(f => f.endsWith(".mdx"));
+  const posts = await Promise.all(mdxFiles.map(async (filename) => {
     const slug = filename.replace(/\.mdx$/, "");
     const fullPath = path.join(POSTS_DIR, filename);
-    const file = fs.readFileSync(fullPath, "utf8");
+    const file = await fs.promises.readFile(fullPath, "utf8");
     const { data, content } = matter(file);
 
     const excerptFromFrontmatter = data.excerpt;
@@ -30,26 +33,31 @@ export function getAllPublishedPosts(): PostMeta[] {
       slug,
       title: data.title ?? slug,
       date: data.date ?? "",
-      excerpt: excerptFromFrontmatter ?? excerptFromContent
+      excerpt: excerptFromFrontmatter ?? excerptFromContent,
+      tags: data.tags,
+      author: data.author
     } as PostMeta;
-  });
+  }));
 
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 }
-export function getPostSourceBySlug(slug: string) {
+export async function getPostSourceBySlug(slug: string) {
   const fullPath = path.join(POSTS_DIR, `${slug}.mdx`);
-  const file = fs.readFileSync(fullPath, "utf8");
+  const file = await fs.promises.readFile(fullPath, "utf8");
   return matter(file); // { content, data }
 }
 
 // src/lib/posts.ts
 
-export function getPostBySlug(slug: string) {
+export async function getPostBySlug(slug: string) {
   const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
-  if (!fs.existsSync(filePath)) return null;
-
-  const file = fs.readFileSync(filePath, "utf8");
-  const { content, data } = matter(file);
-  return { content, data };
+  try {
+    await fs.promises.access(filePath);
+    const file = await fs.promises.readFile(filePath, "utf8");
+    const { content, data } = matter(file);
+    return { content, data };
+  } catch {
+    return null;
+  }
 }

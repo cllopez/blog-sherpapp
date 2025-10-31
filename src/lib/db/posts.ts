@@ -17,12 +17,23 @@ export type BlogPost = {
 };
 
 export async function getAllPosts(): Promise<BlogPost[]> {
-  await connectDB();
-  const posts = await Post.find({ isPublished: true })
-    .sort({ date: -1 })
-    .lean();
+  console.log('🔍 Iniciando búsqueda de posts...');
   
-  return posts.map(formatPost);
+  try {
+    console.log('📡 Conectando a la base de datos...');
+    await connectDB();
+    
+    console.log('🔎 Buscando posts publicados...');
+    const posts = await Post.find({ isPublished: true })
+      .sort({ date: -1 })
+      .lean();
+    
+    console.log(`✅ Encontrados ${posts.length} posts`);
+    return posts.map(formatPost);
+  } catch (error) {
+    console.error('❌ Error en getAllPosts:', error);
+    throw error;
+  }
 }
 
 export async function getPostBySlug(slug: string | null | undefined): Promise<BlogPost | null> {

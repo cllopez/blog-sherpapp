@@ -1,4 +1,4 @@
-// app/blog/page.temp.tsx
+// app/blog/page.tsx
 import Link from "next/link";
 import { getAllPosts } from "../../lib/db/posts";
 
@@ -72,6 +72,22 @@ export default async function BlogPage() {
         <h1 className="text-4xl font-bold mb-4 text-red-600">Error</h1>
         <p className="text-gray-600">Lo sentimos, ha ocurrido un error al cargar los posts.</p>
       </div>
+    );
+  }
+}
+  } catch (error) {
+    console.error('❌ Error al cargar los posts:', error);
+    return (
+      <main className="py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-12 text-purple-800 text-center">
+            Blog de SherpApp
+          </h1>
+          <div className="text-center">
+            <p className="text-red-600 text-lg">Ocurrió un error al cargar las publicaciones.</p>
+          </div>
+        </div>
+      </main>
     );
   }
 }

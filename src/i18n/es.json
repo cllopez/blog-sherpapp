@@ -1,0 +1,82 @@
+{
+  "site": {
+    "title": "Blog SherpApp",
+    "description": "Consejos y experiencias para estudiantes",
+    "footer": {
+      "copyright": "© {year} SherpApp — Todos los derechos reservados"
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "blog": "Blog",
+    "about": "Sobre Nosotros",
+    "admin": "Administración",
+    "categories": {
+      "label": "Categorías",
+      "items": {
+        "productivity": "Productividad",
+        "study": "Estudio",
+        "wellness": "Bienestar",
+        "technology": "Tecnología"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Inspírate, aprende y avanza con SherpApp",
+      "subtitle": "Consejos, experiencias reales y buenas prácticas para organizarte mejor, rendir al máximo y mantenerte constante en tu camino hacia el éxito académico."
+    },
+    "blog": {
+      "latestTitle": "Últimos Artículos",
+      "viewAll": "Ver todos los artículos →",
+      "readMore": "Leer más"
+    }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog de SherpApp",
+      "description": "Explora nuestros artículos sobre productividad, estudio, bienestar y tecnología"
+    },
+    "post": {
+      "publishedOn": "Publicado el {date}",
+      "by": "por {author}",
+      "defaultAuthor": "SherpApp",
+      "backToBlog": "← Volver al blog",
+      "categories": "Categorías",
+      "relatedPosts": "Artículos relacionados"
+    }
+  },
+  "admin": {
+    "meta": {
+      "title": "Panel de Administración",
+      "description": "Gestiona los artículos del blog"
+    },
+    "actions": {
+      "new": "Nuevo Artículo",
+      "edit": "Editar Artículo",
+      "delete": "Eliminar Artículo",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "form": {
+      "title": "Título",
+      "slug": "URL amigable",
+      "date": "Fecha",
+      "author": "Autor",
+      "excerpt": "Extracto",
+      "content": "Contenido",
+      "tags": "Etiquetas",
+      "placeholders": {
+        "title": "Escribe el título del artículo",
+        "slug": "url-amigable-del-articulo",
+        "excerpt": "Breve descripción del artículo..."
+      }
+    },
+    "messages": {
+      "saved": "Artículo guardado correctamente",
+      "deleted": "Artículo eliminado correctamente",
+      "error": "Ha ocurrido un error: {message}",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este artículo?"
+    }
+  }
+}

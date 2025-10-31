@@ -20,6 +20,15 @@ a {
   text-decoration: none;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 a:hover {
   text-decoration: underline;
 }
