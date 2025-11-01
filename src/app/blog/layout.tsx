@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import BlogNavbar from '@/components/BlogNavbar';
+import BlogNavbar from '../../components/BlogNavbar';
 import { getTranslations } from 'next-intl/server';
 
 export default async function BlogLayout({
@@ -20,7 +20,7 @@ export default async function BlogLayout({
         technology: categories('technology')
       }} />
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <Suspense fallback={<div className="py-12 text-center">Cargando...</div>}>
+        <Suspense fallback={<div className="py-12 text-center">{t('loading')}</div>}>
           {children}
         </Suspense>
       </div>

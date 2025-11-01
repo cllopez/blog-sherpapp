@@ -3,16 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const routes = [
-  { path: '/blog', label: 'Todos' },
-  { path: '/blog/category/productivity', label: 'Productividad' },
-  { path: '/blog/category/study', label: 'Estudio' },
-  { path: '/blog/category/wellness', label: 'Bienestar' },
-  { path: '/blog/category/technology', label: 'Tecnología' }
-];
+type BlogNavbarProps = {
+  translations: {
+    blog: string;
+    productivity: string;
+    study: string;
+    wellness: string;
+    technology: string;
+  };
+};
 
-export default function BlogNavbar() {
+export default function BlogNavbar({ translations }: BlogNavbarProps) {
   const pathname = usePathname();
+  
+  const routes = [
+    { path: '/blog', label: translations.blog },
+    { path: '/blog/category/productivity', label: translations.productivity },
+    { path: '/blog/category/study', label: translations.study },
+    { path: '/blog/category/wellness', label: translations.wellness },
+    { path: '/blog/category/technology', label: translations.technology }
+  ];
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

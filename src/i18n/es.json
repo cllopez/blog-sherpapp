@@ -11,6 +11,7 @@
     "blog": "Blog",
     "about": "Sobre Nosotros",
     "admin": "Administración",
+    "loading": "Cargando...",
     "categories": {
       "label": "Categorías",
       "items": {
@@ -73,6 +74,13 @@
       }
     },
     "messages": {
+      "saved": "Artículo guardado correctamente",
+      "deleted": "Artículo eliminado correctamente",
+      "error": "Ha ocurrido un error: {message}",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este artículo?"
+    },
+
+    "": {
       "saved": "Artículo guardado correctamente",
       "deleted": "Artículo eliminado correctamente",
       "error": "Ha ocurrido un error: {message}",

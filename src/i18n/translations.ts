@@ -87,6 +87,13 @@ export type Messages = {
     required: string;
     optional: string;
   };
+    natvar: {
+    loading: string;
+    error: string;
+    success: string;
+    required: string;
+    optional: string;
+  };
 };
 
 export type TranslationKey = keyof Messages | string;
@@ -128,85 +135,7 @@ export function buildTranslator(messages: Messages) {
   };
 }
 
-// Helper para crear un objeto de mensajes vacío
-const createEmptyMessages = (): Messages => ({
-  site: {
-    title: '',
-    description: '',
-    footer: { copyright: '' }
-  },
-  navigation: {
-    home: '',
-    blog: '',
-    categories: {
-      label: '',
-      items: {}
-    },
-    admin: ''
-  },
-  home: {
-    hero: {
-      title: '',
-      subtitle: ''
-    },
-    blog: {
-      latestTitle: '',
-      viewAll: '',
-      readMore: ''
-    }
-  },
-  blog: {
-    meta: {
-      title: '',
-      description: ''
-    },
-    post: {
-      publishedOn: '',
-      by: '',
-      defaultAuthor: '',
-      backToBlog: '',
-      categories: '',
-      relatedPosts: ''
-    }
-  },
-  admin: {
-    meta: {
-      title: '',
-      description: ''
-    },
-    actions: {
-      new: '',
-      edit: '',
-      delete: '',
-      save: '',
-      cancel: ''
-    },
-    form: {
-      title: '',
-      slug: '',
-      date: '',
-      author: '',
-      excerpt: '',
-      content: '',
-      tags: '',
-      placeholders: {}
-    },
-    messages: {
-      saved: '',
-      deleted: '',
-      error: '',
-      confirmDelete: ''
-    }
-  },
-  categories: {},
-  common: {
-    loading: '',
-    error: '',
-    success: '',
-    required: '',
-    optional: ''
-  }
-});
+
 
 export async function loadMessages(lang: Language): Promise<Messages> {
   try {
@@ -216,4 +145,8 @@ export async function loadMessages(lang: Language): Promise<Messages> {
     console.error(`Failed to load messages for language: ${lang}`, error);
     return createEmptyMessages();
   }
+}
+
+function createEmptyMessages(): Messages | PromiseLike<Messages> {
+    throw new Error("Function not implemented.");
 }
