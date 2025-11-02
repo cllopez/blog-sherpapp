@@ -25,17 +25,17 @@ export default function BlogNavbar({ translations }: BlogNavbarProps) {
   ];
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <div className="flex gap-6 md:gap-10">
+    <nav className="sticky top-16 z-30 w-full border-b border-gray-200 bg-white/95 shadow-sm">
+      <div className="container mx-auto flex h-12 items-center px-4">
+        <div className="flex gap-8">
           {routes.map((route) => (
             <Link
               key={route.path}
               href={route.path}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`relative text-sm font-medium transition-all duration-200 ${
                 pathname === route.path
-                  ? "text-foreground font-semibold"
-                  : "text-foreground/60"
+                  ? "text-purple-600 before:absolute before:-bottom-[17px] before:left-0 before:h-[2px] before:w-full before:bg-purple-600 before:transition-all"
+                  : "text-gray-600 hover:text-gray-900 hover:text-purple-600"
               }`}
             >
               {route.label}

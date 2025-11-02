@@ -1,0 +1,15 @@
+{
+  "name": "SherpApp",
+  "short_name": "SherpApp",
+  "description": "Consejos y experiencias para estudiantes",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#7c3aed",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

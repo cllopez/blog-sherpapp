@@ -2,6 +2,7 @@ import { getPostBySlug } from '@/lib/db/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 interface PageProps {
   params: {
@@ -9,7 +10,36 @@ interface PageProps {
   };
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: 'Post no encontrado',
+      description: 'El artículo que buscas no existe'
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date.toISOString(),
+      authors: [post.author],
+      tags: post.tags,
+    },
+  };
+}
+
 export default async function PostPage({ params }: PageProps) {
+  // Validamos que el slug no sea favicon.ico
+  if (params.slug === 'favicon.ico') {
+    notFound();
+  }
+
   const post = await getPostBySlug(params.slug);
 
   if (!post) {
@@ -17,9 +47,10 @@ export default async function PostPage({ params }: PageProps) {
   }
 
   return (
-    <div className="py-12">
-      <article className="max-w-4xl mx-auto px-4">
-        <Link 
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <article className="max-w-4xl mx-auto">
+          <Link 
           href="/blog"
           className="inline-block mb-8 text-purple-600 hover:text-purple-800 transition-colors"
         >
@@ -63,6 +94,7 @@ export default async function PostPage({ params }: PageProps) {
           <MDXRemote source={post.content} />
         </div>
       </article>
+      </div>
     </div>
-  );
-}
+    );
+  }

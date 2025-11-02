@@ -17,7 +17,6 @@ export default function PostForm({ initialData, isEditing = false }: PostFormPro
     content: '',
     excerpt: '',
     author: '',
-    tags: '',
     isPublished: true,
     ...initialData,
     tags: initialData?.tags?.join(', ') || ''
@@ -147,7 +146,7 @@ export default function PostForm({ initialData, isEditing = false }: PostFormPro
             type="checkbox"
             checked={formData.isPublished}
             onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-            className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+            className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
           />
           <label className="ml-2 block text-sm text-gray-900">
             Publicar inmediatamente
@@ -170,7 +169,7 @@ export default function PostForm({ initialData, isEditing = false }: PostFormPro
           </button>
           <button
             type="submit"
-            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
           >
             {isEditing ? 'Actualizar' : 'Crear'} Post
           </button>

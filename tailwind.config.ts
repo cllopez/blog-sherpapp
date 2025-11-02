@@ -1,7 +1,8 @@
-import { type Config } from "tailwindcss";
-import typography from "@tailwindcss/typography";
+import type { Config } from 'tailwindcss'
+import typography from '@tailwindcss/typography'
+import lineClamp from '@tailwindcss/line-clamp'
 
-const config: Config = {
+const config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,9 +16,29 @@ theme: {
     },
     colors: {
       primary: {
-        blue: "#0088FE",
-        green: "#00C49F",
-        yellow: "#FFBB28",
+        50: '#DCEAE3',
+        100: '#BFD9CF',
+        200: '#98C6BB',
+        300: '#78B7A9',
+        400: '#56A799',
+        500: '#2E9B86',
+        600: '#087F6C',  // Main Color
+        700: '#065C4E',
+        800: '#04312B',
+        900: '#021B18',
+      },
+      secondary: {
+        50: '#EAFDF0',
+        100: '#D5FAE2',
+        200: '#BDF3D1',
+        300: '#AEEAC8',
+        400: '#95DCBE',
+        500: '#7FD0B8',  // Main Color
+        600: '#5BB6A6',
+        700: '#41978E',
+        800: '#2E7A74',
+        900: '#165A57',
+      },
         orange: "#FF8042",
         purple: "#A28DFF",
         red: "#FF6B6B"
@@ -47,11 +68,13 @@ theme: {
       }
     }
   }
-}
-,
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"),
-  ],
+},
+    plugins: [
+      // @ts-ignore
+      require('@tailwindcss/typography'),
+      // @ts-ignore
+      require('@tailwindcss/line-clamp')
+    ]
 };
+
 export default config;

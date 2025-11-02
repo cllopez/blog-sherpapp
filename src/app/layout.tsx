@@ -1,6 +1,5 @@
 import './globals.css'
-import type { Metadata } from 'next'
-import Header from './components/Header'
+import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sherpapp.es'),
@@ -9,11 +8,28 @@ export const metadata: Metadata = {
     default: 'SherpApp - Consejos y experiencias para estudiantes'
   },
   description: 'Consejos, experiencias reales y buenas prácticas para organizarte mejor y rendir al máximo.',
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/logo.png', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/logo.png', type: 'image/png' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'es_ES',
     siteName: 'SherpApp'
+  },
+  robots: {
+    index: true,
+    follow: true
   }
+}
+
+export const viewport = {
+  themeColor: '#7c3aed'
 }
 
 export default function RootLayout({
@@ -24,10 +40,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <Header />
-        <main>
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

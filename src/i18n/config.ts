@@ -26,34 +26,24 @@ export function removeLocaleFromPathname(pathname: string): string {
   return pathname;
 }
 
-export default async function getI18nConfig({ locale }: { locale: string | undefined }) {
-  // Validate that the incoming locale is supported
-  if (!locale || !locales.includes(locale as any)) {
-    locale = defaultLocale;
-  }
-
+export default getRequestConfig(async ({ locale }) => {
+  // Ensure we have a valid locale
+  const validLocale = !locale || !locales.includes(locale as any) ? defaultLocale : locale;
+  
   try {
     // Load messages for the requested locale
     const messages = (await import(`./es.json`)).default;
 
-    return getRequestConfig({
-      locale,
+    return {
+      locale: validLocale,
       messages,
+      timeZone: 'Europe/Madrid',
       defaultTranslationValues: {
         year: new Date().getFullYear()
       }
-    });
+    };
   } catch (error) {
     console.error('Error loading messages:', error);
-    
-    // Fallback to default locale
-    const defaultMessages = (await import(`./es.json`)).default;
-    return getRequestConfig({
-      locale: defaultLocale,
-      messages: defaultMessages,
-      defaultTranslationValues: {
-        year: new Date().getFullYear()
-      }
-    });
+    throw error;
   }
-}
+});

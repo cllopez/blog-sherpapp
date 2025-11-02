@@ -34,13 +34,13 @@ export default async function PostPage({
     <main className="py-12">
       <Link 
         href="/blog"
-        className="inline-block mb-6 text-purple-600 hover:text-purple-800"
+        className="inline-block mb-6 text-primary-600 hover:text-primary-800"
       >
         ← Volver al blog
       </Link>
       
       <article>
-        <h1 className="text-3xl font-bold text-purple-700 mb-4">{post.title}</h1>
+        <h1 className="text-3xl font-bold text-primary-700 mb-4">{post.title}</h1>
         
         <div className="flex items-center gap-4 mb-6 text-sm text-gray-500">
           <span>{new Date(post.date).toLocaleDateString()}</span>
@@ -60,7 +60,7 @@ export default async function PostPage({
               <Link 
                 key={tag} 
                 href={`/blog/tags/${tag}`}
-                className="text-sm px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 transition-colors"
+                className="text-sm px-3 py-1 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors"
               >
                 {tag}
               </Link>

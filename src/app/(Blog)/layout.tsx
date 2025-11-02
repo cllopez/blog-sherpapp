@@ -21,7 +21,15 @@ export default function BlogLayout({
 }) {
   return (
     <div className={`${poppins.variable} font-sans`}>
-      <BlogNavbar />
+      <BlogNavbar
+        translations={{
+          blog: "Blog",
+          productivity: "Productividad",
+          study: "Estudio",
+          wellness: "Bienestar",
+          technology: "Tecnología"
+        }}
+      />
       <main className="min-h-screen bg-gray-50 pt-16">
         {children}
       </main>

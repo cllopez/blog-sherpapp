@@ -31,9 +31,9 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="bg-gray-50 text-gray-900">
+      <div className="flex min-h-screen flex-col">
         <Header />
-        <main className="min-h-[80vh]">{children}</main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </div>
     </NextIntlClientProvider>

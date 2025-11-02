@@ -9,6 +9,12 @@
   "navigation": {
     "home": "Inicio",
     "blog": "Blog",
+    "features": "Características",
+    "benefits": "Beneficios",
+    "plans": "Planes",
+    "faq": "FAQ",
+    "contact": "Contacto",
+    "start": "Empezar",
     "about": "Sobre Nosotros",
     "admin": "Administración",
     "loading": "Cargando...",
@@ -25,6 +31,7 @@
   "home": {
     "hero": {
       "title": "Inspírate, aprende y avanza con SherpApp",
+      "titleHighlight": "para estudiantes",
       "subtitle": "Consejos, experiencias reales y buenas prácticas para organizarte mejor, rendir al máximo y mantenerte constante en tu camino hacia el éxito académico."
     },
     "blog": {
